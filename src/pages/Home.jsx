@@ -10,7 +10,7 @@ const Home = () => {
     const [searchQuery,setSearchQuery] = useState("");
     const [movies,setMovies] = useState([]);
     const [error,setError] = useState(null);
-    const [loading,setloding] = useState(true)
+    const [loading,setloading] = useState(true)
 
     useEffect(() => {
         const loadPopularMovies = async () => {
@@ -22,20 +22,33 @@ const Home = () => {
                 setError("failel to load movies ...")
             }
             finally {
-                setloding(false)
+                setloading(false)
             }
         }
         loadPopularMovies()
     }, [])
 
 
-
-
-
-
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault()
-        alert(searchQuery)
+        if(!searchQuery.trim()) return
+        setloading("true")
+        if(loading) return
+
+
+        try{
+            const searchResult = await searchMovies(searchQuery)
+            setMovies(searchResult)
+            setError(null)
+        }catch(err){
+            console.log(err)
+            setError("failed to search movies...")
+        } finally{
+            setloading(false)
+        }
+
+
+        searchQuery("")
     }
 
   return (
