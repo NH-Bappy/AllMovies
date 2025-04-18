@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaHeart } from "react-icons/fa";
+import "../css/MovieCard.css"
 
 
 const MoviesCard = ({movie}) => {
@@ -11,19 +12,19 @@ const MoviesCard = ({movie}) => {
     }
 
   return (
-    <div className="">
-        <div className="">
-            <img src={movie.url} alt={movie.title} />
-            <div className="">
-                <button className="" onClick={onFavoriteClick}>
+    <div className="movie-card">
+        <div className="movie-poster">
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+            <div className="movie-overlay">
+                <button className="favorite-btn" onClick={onFavoriteClick}>
                 <FaHeart />
                 </button>
             </div>
         </div>
 
-        <div className="">
+        <div className="movie-info">
         <h3>{movie.title}</h3>
-        <p>{movie.release_date}</p>
+        <p>{movie.release_date?.split("-")[0]}</p>
         </div>
     </div>
   )
